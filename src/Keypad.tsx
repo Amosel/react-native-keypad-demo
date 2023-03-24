@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import {Backspace, Cell} from './VirtualKeypadComponents';
 import {Observer, useLocalObservable} from 'mobx-react';
-import {VirtualKeyboardModel} from './virtual-keyboard-model';
+import {VirtualKeyboardModel} from './models/virtual-keyboard-model';
 
 export const Keypad = ({
 	passPhraseLength = 6,
@@ -29,6 +29,7 @@ export const Keypad = ({
 				passPhraseLength,
 			}),
 	);
+
 	return (
 		<View
 			style={{
@@ -45,6 +46,7 @@ export const Keypad = ({
 							justifyContent: 'center',
 							textAlign: 'center',
 							fontSize: 21,
+							color: 'black',
 						}}
 					>
 						{model.password}

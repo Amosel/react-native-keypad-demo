@@ -71,7 +71,6 @@ export const Backspace =
 		color?: string;
 		disabled?: boolean;
 	}) => {
-		console.log('Backspace Render', {disabled});
 		return (
 			<TouchableOpacity
 				disabled={disabled}
