@@ -22,15 +22,11 @@ const styles = StyleSheet.create({
 		flex: 1,
 		alignItems: 'center',
 		justifyContent: 'center',
-		borderWidth: 1,
-		borderColor: 'black',
 	},
 	cell: {
 		flex: 1,
 		justifyContent: 'center',
 		padding: 10,
-		borderWidth: 1,
-		borderColor: 'black',
 	},
 });
 

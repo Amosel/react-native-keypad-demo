@@ -34,8 +34,6 @@ export const Keypad = ({
 		<View
 			style={{
 				flex: 1,
-				borderWidth: 1,
-				borderColor: 'black',
 				justifyContent: 'center',
 			}}
 		>
