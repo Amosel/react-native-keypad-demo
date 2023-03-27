@@ -1,19 +1,16 @@
+import {observer} from 'mobx-react-lite';
 import React from 'react';
 import {
 	StyleSheet,
 	Text,
 	TouchableOpacity,
-	Image,
 	type ViewStyle,
-	type ImageSourcePropType,
 	type TextStyle,
+	type TouchableOpacityProps,
 } from 'react-native';
+import {type KeyboardKeyModel} from './models/virtual-keyboard-model';
 
 const styles = StyleSheet.create({
-	row: {
-		flexDirection: 'row',
-		marginTop: 15,
-	},
 	number: {
 		fontSize: 25,
 		textAlign: 'center',
@@ -30,65 +27,35 @@ const styles = StyleSheet.create({
 	},
 });
 
-export const Cell = (
-	({onPress, disabled,
+export const Cell = observer(
+	({
 		style,
 		textStyle,
-		color,
-		text,
+		model,
+		...rest
 	}: {
-		text: string; 
-		onPress: () => void; disabled?: boolean;
-		rowStyle?: ViewStyle;
 		style?: ViewStyle;
 		textStyle?: TextStyle;
-		color?: string;
-	}) => {
+		model: KeyboardKeyModel;
+	} & TouchableOpacityProps) => {
 		return (
 			<TouchableOpacity
-				style={[styles.cell, style]}
-				accessibilityLabel={text}
-				onPress={onPress}
-				disabled={disabled}
+				className='flex-1 justify-center p-2'
+				accessibilityLabel={model.accessibilityLabel}
+				disabled={model.disabled}
+				onLongPress={model.handleLongPress}
+				onPress={model.handlePress}
+				{...rest}
 			>
-				<Text style={[styles.number, textStyle, {color}]}>{text}</Text>
+				<Text
+					className={`text-2xl text-center ${
+						model.disabled ? 'text-red-600' : 'text-black'
+					}`}
+				>
+					{model.symbol}
+				</Text>
+				
 			</TouchableOpacity>
 		);
-	});
-
-
-export const Backspace =
-	({handleBackspace, handleClear, backspaceImg, clearOnLongPress, color, applyBackspaceTint, disabled}: {
-		handleBackspace: () => void;
-		handleClear: () => void;
-		backspaceImg: ImageSourcePropType;
-		applyBackspaceTint?: boolean;
-		clearOnLongPress?: boolean;
-		color?: string;
-		disabled?: boolean;
-	}) => {
-		return (
-			<TouchableOpacity
-				disabled={disabled}
-				accessibilityLabel="backspace"
-				style={styles.backspace}
-				onPress={() => {
-					handleBackspace();
-				}}
-				onLongPress={() => {
-					if (clearOnLongPress) {
-						handleClear();
-					}
-				}}
-			>
-				{backspaceImg && (
-					<Image
-						source={backspaceImg}
-						resizeMode="contain"
-						style={applyBackspaceTint && {tintColor: color}}
-					/>
-				)}
-			</TouchableOpacity>
-		);
-	};
-
+	},
+);
